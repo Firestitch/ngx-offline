@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { FsExampleModule } from '@firestitch/example';
 import { FsMessageModule } from '@firestitch/message';
-import { FsContentWidgetsModule, FsContentWidgetModule } from '@firestitch/content-widget';
+import { FsOfflineManageModule, FsOfflineModule } from '@firestitch/offline';
 import { FsLabelModule } from '@firestitch/label';
 import { FsStoreModule } from '@firestitch/store';
 import { FsHtmlEditorModule } from '@firestitch/html-editor';
@@ -18,26 +18,31 @@ import {
   ExamplesComponent
 } from './components';
 import { AppComponent } from './app.component';
-import { ContentWidgetsComponent } from './components/content-widgets';
-import { FS_CONTENT_WIDGET_CONFIG } from 'src/app/content-widget/injectors';
-import { contentWidgetConfigFactory } from './helpers/content-widget-config-factory';
-import { ContentWidgetComponent } from './components/content-widget';
+import { OfflineManageComponent } from './components/offline-manage';
+import { FS_OFFLINE_CONFIG } from 'src/app/injectors';
+import { offlineConfig } from './helpers/offline-config';
+import { OfflineComponent } from './components/offline';
+import { FsDatePickerModule } from '@firestitch/datepicker';
+import { OfflineService } from './services';
+import { FsOffline } from 'src/app/services';
 
 
 const routes: Routes = [
   { path: '', component: ExamplesComponent },
+  { path: 'offline', component: OfflineComponent },
 ];
 
 @NgModule({
   bootstrap: [ AppComponent ],
   imports: [
     BrowserModule,
-    FsContentWidgetsModule,
-    FsContentWidgetModule,
+    FsOfflineManageModule,
+    FsOfflineModule,
     BrowserAnimationsModule,
     AppMaterialModule,
     FormsModule,
     FsLabelModule,
+    FsDatePickerModule.forRoot(),
     FsStoreModule,
     FsExampleModule.forRoot(),
     FsHtmlEditorModule.forRoot(),
@@ -46,17 +51,23 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
   ],
   providers: [
-    { provide: FS_CONTENT_WIDGET_CONFIG, 
-      useFactory: contentWidgetConfigFactory, 
-      deps: [ ] 
+    { provide: FS_OFFLINE_CONFIG, 
+      useFactory: offlineConfig, 
+      deps: [ OfflineService ] 
     },
   ],
   declarations: [
     AppComponent,
     ExamplesComponent,
-    ContentWidgetsComponent,
-    ContentWidgetComponent,
+    OfflineManageComponent,
+    OfflineComponent,
   ],
 })
 export class PlaygroundModule {
+
+  public constructor(
+    private _offline: FsOffline,
+  ) {
+    _offline.init();
+  }
 }

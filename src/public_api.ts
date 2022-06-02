@@ -1,8 +1,13 @@
-export { FsContentWidgetsModule } from './app/content-widgets/fs-content-widgets.module';
-export { FsContentWidgetModule } from './app/content-widget/fs-content-widget.module';
-export { FsContentWidgetConfig } from './app/content-widget/interfaces/content-widget-config';
+export { FsOfflineModule } from './app/offline/offline.module';
+export { FsOfflineManageModule } from './app/offline-manage/offline-manage.module';
 
-export { FsContentWidgetsComponent } from './app/content-widgets/components/content-widgets/content-widgets.component';
-export { FsContentWidgetComponent } from './app/content-widget/components/content-widget/content-widget.component';
+export { Offline } from './app/interfaces/offline-config';
 
-export { FS_CONTENT_WIDGET_CONFIG } from './app/content-widget/injectors/content-wiget.injector';
+export { FsOfflineConfig } from './app/interfaces/offline-config';
+
+export { FsOffline } from './app/services/offline.service';
+
+export { FS_OFFLINE_CONFIG } from './app/injectors/offline-coinfig.injector';
+
+export { OfflineComponent } from './app/offline/components/offline/offline.component';
+export { OfflineManageComponent } from './app/offline-manage/components/offline-manage/offline-manage.component';
