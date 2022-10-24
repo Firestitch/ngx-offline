@@ -28,8 +28,10 @@ export class FsOffline {
   ) { }
 
   public init() {
+    const statusFrequency = this.config.statusFrequency * 1000;
+
     merge(
-      timer(0, this.config.statusFrequency * 1000),
+      timer(statusFrequency, statusFrequency),
       this._router.events
         .pipe(
           filter((event) => event instanceof NavigationEnd),
@@ -40,26 +42,25 @@ export class FsOffline {
           return this._window.location.pathname.indexOf(this.config.offlineUrl) === -1;
         }),
         switchMap(() => this.config.loadStatus()),
+        filter((offline) => offline?.enabled),
       )
       .subscribe((offline: Offline) => {
-        if (offline?.enabled) {
-          if (isAfter(offline.date, new Date())) {
-            let message = offline.goingOfflineMessage;
-            if (message) {
-              const time = format(offline.date, 'MMM d p');
-              message = message.replace('{$offlineTime}', time);
+        if (isAfter(offline.date, new Date())) {
+          let message = offline.goingOfflineMessage;
+          if (message) {
+            const time = format(offline.date, 'MMM d p');
+            message = message.replace('{$offlineTime}', time);
 
-              if (this._goingOfflineMessage !== message) {
-                this._message.hide();
-                this._goingOfflineMessage = message;
-              }
-
-              this._message.info(message, { timeout: 60 * 60 * 365 });
+            if (this._goingOfflineMessage !== message) {
+              this._message.hide();
+              this._goingOfflineMessage = message;
             }
-          } else {
-            this._message.hide();
-            this._window.location.href = this.config.offlineUrl;
+
+            this._message.info(message, { timeout: 60 * 60 * 365 });
           }
+        } else {
+          this._message.hide();
+          this._window.location.href = this.config.offlineUrl;
         }
       });
   }
