@@ -4,7 +4,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { FsMessage } from '@firestitch/message';
 
 import { merge, timer } from 'rxjs';
-import { filter, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, exhaustMap, filter, map } from 'rxjs/operators';
 
 import { isAfter } from 'date-fns';
 import { format } from 'date-fns/esm';
@@ -35,13 +35,17 @@ export class FsOffline {
       this._router.events
         .pipe(
           filter((event) => event instanceof NavigationEnd),
+          map((event: NavigationEnd) => event.url.split('?')[0]),
+          distinctUntilChanged(),
+          filter((url) => {
+            return url.indexOf(this.config.offlineUrl) === -1;
+          }),
         ),
     )
       .pipe(
-        filter(() => {
-          return this._window.location.pathname.indexOf(this.config.offlineUrl) === -1;
+        exhaustMap(() => {
+          return this.config.loadStatus();
         }),
-        switchMap(() => this.config.loadStatus()),
         filter((offline) => offline?.enabled),
       )
       .subscribe((offline: Offline) => {
