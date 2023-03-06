@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { OfflineService } from 'playground/app/services';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 
 @Component({
@@ -15,7 +15,7 @@ export class OfflineManageComponent {
   ) {}
 
 
-  public loadOffline = () => {
+  public loadOffline = (): Observable<any> => {
     return of({
       enabled: false,
       content: '<h1>Offline</h1>',      
