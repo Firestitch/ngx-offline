@@ -58,7 +58,7 @@
     "@firestitch/file": "^12.0.2",
     "@firestitch/filter": "^12.0.5",
     "@firestitch/form": "^12.1.1",
-    "@firestitch/html-editor": "^12.0.1",
+    "@firestitch/html-editor": "^12.7.3",
     "@firestitch/iframe": "^12.0.0",
     "@firestitch/label": "^12.0.0",
     "@firestitch/list": "^12.1.2",
