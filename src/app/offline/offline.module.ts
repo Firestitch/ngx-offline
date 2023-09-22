@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 
-import { FsHtmlEditorModule } from '@firestitch/html-editor';
+import { FsHtmlRendererModule } from '@firestitch/html-editor';
 
 import { OfflineComponent } from './components';
 
@@ -13,7 +13,7 @@ import { OfflineComponent } from './components';
 
     MatCardModule,
 
-    FsHtmlEditorModule,
+    FsHtmlRendererModule,
   ],
   declarations: [
     OfflineComponent,
