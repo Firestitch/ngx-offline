@@ -6,8 +6,7 @@ import { FsMessage } from '@firestitch/message';
 import { merge, timer } from 'rxjs';
 import { distinctUntilChanged, exhaustMap, filter, map } from 'rxjs/operators';
 
-import { isAfter } from 'date-fns';
-import { format } from 'date-fns/esm';
+import { format, isAfter } from 'date-fns';
 
 import { FS_OFFLINE_CONFIG } from '../injectors';
 import { FsOfflineConfig, Offline } from '../interfaces';
