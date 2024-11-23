@@ -2,11 +2,11 @@ import { Inject, Injectable } from '@angular/core';
 
 import { FsMessage } from '@firestitch/message';
 
-import { interval } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
 
 import { format, isAfter } from 'date-fns';
 
+import { timer } from 'rxjs';
 import { FS_OFFLINE_CONFIG } from '../injectors';
 import { FsOfflineConfig, Offline } from '../interfaces';
 
@@ -27,7 +27,7 @@ export class FsOffline {
   public init() {
     const statusFrequency = this.config.statusFrequency * 1000;
 
-    interval(statusFrequency)
+    timer(0, statusFrequency)
       .pipe(
         switchMap(() => {
           return this.config.loadStatus();

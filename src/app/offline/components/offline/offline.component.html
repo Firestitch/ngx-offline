@@ -1,3 +1,9 @@
-<mat-card *ngIf="offline">
-  <fs-html-renderer [html]="offline.content"></fs-html-renderer>  
+<mat-card>
+  <mat-card-content>
+    @if (offline) {
+      <fs-html-renderer [html]="offline.content"></fs-html-renderer>
+    } @else {
+      The site is currently online.
+    }
+  </mat-card-content>
 </mat-card>
