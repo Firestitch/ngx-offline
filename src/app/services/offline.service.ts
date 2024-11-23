@@ -1,10 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
 
 import { FsMessage } from '@firestitch/message';
 
-import { merge, timer } from 'rxjs';
-import { distinctUntilChanged, exhaustMap, filter, map } from 'rxjs/operators';
+import { interval } from 'rxjs';
+import { filter, switchMap } from 'rxjs/operators';
 
 import { format, isAfter } from 'date-fns';
 
@@ -23,29 +22,17 @@ export class FsOffline {
   constructor(
     @Inject(FS_OFFLINE_CONFIG) private config: FsOfflineConfig,
     private _message: FsMessage,
-    private _router: Router,
   ) { }
 
   public init() {
     const statusFrequency = this.config.statusFrequency * 1000;
 
-    merge(
-      timer(statusFrequency, statusFrequency),
-      this._router.events
-        .pipe(
-          filter((event) => event instanceof NavigationEnd),
-          map((event: NavigationEnd) => event.url.split('?')[0]),
-          distinctUntilChanged(),
-          filter((url) => {
-            return url.indexOf(this.config.offlineUrl) === -1;
-          }),
-        ),
-    )
+    interval(statusFrequency)
       .pipe(
-        exhaustMap(() => {
+        switchMap(() => {
           return this.config.loadStatus();
         }),
-        filter((offline) => offline?.enabled),
+        filter((offline: any) => offline?.enabled),
       )
       .subscribe((offline: Offline) => {
         if (isAfter(offline.date, new Date())) {
@@ -62,8 +49,10 @@ export class FsOffline {
             this._message.info(message, { timeout: 60 * 60 * 365 });
           }
         } else {
-          this._message.hide();
-          this._window.location.href = this.config.offlineUrl;
+          if (this._window.location.href.indexOf(this.config.offlineUrl) === -1) {
+            this._message.hide();
+            this._window.location.href = this.config.offlineUrl;
+          }
         }
       });
   }
