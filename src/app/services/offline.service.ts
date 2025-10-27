@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 import { FsMessage } from '@firestitch/message';
 
@@ -15,14 +15,12 @@ import { FsOfflineConfig, Offline } from '../interfaces';
   providedIn: 'root',
 })
 export class FsOffline {
+  private config = inject<FsOfflineConfig>(FS_OFFLINE_CONFIG);
+  private _message = inject(FsMessage);
+
 
   private _goingOfflineMessage;
   private _window: any = window;
-
-  constructor(
-    @Inject(FS_OFFLINE_CONFIG) private config: FsOfflineConfig,
-    private _message: FsMessage,
-  ) { }
 
   public init() {
     const statusFrequency = this.config.statusFrequency * 1000;

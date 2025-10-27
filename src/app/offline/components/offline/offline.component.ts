@@ -1,10 +1,4 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  OnInit,
-  Inject,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, inject } from '@angular/core';
 
 import { parse } from '@firestitch/date';
 
@@ -32,15 +26,13 @@ import { FsHtmlRendererModule } from '@firestitch/html-editor';
     ],
 })
 export class OfflineComponent implements OnInit {
+  private _config = inject<FsOfflineConfig>(FS_OFFLINE_CONFIG);
+  private _cdRef = inject(ChangeDetectorRef);
+
 
   public offline;
 
   private _destroy$ = new Subject();
-
-  constructor(
-    @Inject(FS_OFFLINE_CONFIG) private _config: FsOfflineConfig,
-    private _cdRef: ChangeDetectorRef,
-  ) { }
 
   public ngOnInit(): void {
     timer(0, this._config.statusFrequency * 1000)

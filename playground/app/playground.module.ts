@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -58,10 +58,12 @@ const routes: Routes = [
     declarations: [AppComponent],
 } */)
 export class PlaygroundModule {
+  private _offline = inject(FsOffline);
 
-  public constructor(
-    private _offline: FsOffline,
-  ) {
+
+  public constructor() {
+    const _offline = this._offline;
+
     _offline.init();
   }
 }

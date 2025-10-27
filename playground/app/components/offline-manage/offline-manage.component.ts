@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { OfflineService } from 'playground/app/services';
 import { Observable, of } from 'rxjs';
 import { OfflineManageComponent as OfflineManageComponent_1 } from '../../../../src/app/offline-manage/components/offline-manage/offline-manage.component';
@@ -12,10 +12,8 @@ import { OfflineManageComponent as OfflineManageComponent_1 } from '../../../../
     imports: [OfflineManageComponent_1]
 })
 export class OfflineManageComponent {
+  private _offlineSerice = inject(OfflineService);
 
-  public constructor(
-    private _offlineSerice: OfflineService,
-  ) {}
 
 
   public loadOffline = (): Observable<any> => {

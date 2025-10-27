@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import { OfflineService } from 'playground/app/services';
 import { OfflineComponent as OfflineComponent_1 } from '../../../../src/app/offline/components/offline/offline.component';
@@ -10,10 +10,12 @@ import { OfflineComponent as OfflineComponent_1 } from '../../../../src/app/offl
     imports: [OfflineComponent_1]
 })
 export class OfflineComponent {
+  private _offliceService = inject(OfflineService);
 
-  public constructor(
-    private _offliceService: OfflineService,
-  ) {
+
+  public constructor() {
+    const _offliceService = this._offliceService;
+
     _offliceService.offline = { 
       enabled: true,
       content: '<h1>Offline</h1>',

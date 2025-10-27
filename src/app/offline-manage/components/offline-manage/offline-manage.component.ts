@@ -1,6 +1,4 @@
-import {
-  Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, Input,
-} from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, Input, inject } from '@angular/core';
 
 import { FsMessage } from '@firestitch/message';
 
@@ -41,6 +39,9 @@ import { MatButton } from '@angular/material/button';
     ],
 })
 export class OfflineManageComponent implements OnInit, OnDestroy {
+  private _cdRef = inject(ChangeDetectorRef);
+  private _message = inject(FsMessage);
+
 
   @Input() saveOffline: (offline: Offline) => Observable<Offline>;
   @Input() loadOffline: () => Observable<Offline>;
@@ -48,11 +49,6 @@ export class OfflineManageComponent implements OnInit, OnDestroy {
   public offline: any = null;
 
   private _destroy$ = new Subject();
-
-  constructor(
-    private _cdRef: ChangeDetectorRef,
-    private _message: FsMessage,
-  ) {}
 
   public ngOnInit(): void {
     this.loadOffline()
