@@ -3,14 +3,14 @@
     <fs-label>Enable Offline Mode</fs-label>
     <mat-checkbox name="enabled" [(ngModel)]="offline.enabled">Enabled</mat-checkbox>
   </fs-label-field>
-  
-  <ng-container *ngIf="offline.enabled">
+
+  @if (offline.enabled) {
     <fs-label-field>
       <fs-label>Enable Redirection</fs-label>
       <mat-checkbox name="redirect" [(ngModel)]="offline.redirect">Enabled</mat-checkbox>
     </fs-label-field>
     <div class="form-fields">
-      <ng-container *ngIf="offline.redirect">
+      @if (offline.redirect) {
         <mat-form-field class="full-width">
           <input
             matInput
@@ -18,8 +18,7 @@
             [fsFormUrl]="true"
             [(ngModel)]="offline.redirectUrl"
             name="redirectUrl">
-        </mat-form-field> 
-        
+        </mat-form-field>
         <mat-form-field class="full-width">
           <input
             matInput
@@ -27,9 +26,8 @@
             [(ngModel)]="offline.redirectDelay"
             name="redirectDelay">
           <div matSuffix>seconds</div>
-        </mat-form-field> 
-      </ng-container>    
-      
+        </mat-form-field>
+      }
       <mat-form-field>
         <input
           matInput
@@ -38,29 +36,29 @@
           name="date"
           placeholder="Future Date">
       </mat-form-field>
-      
-      <mat-form-field *ngIf="offline.date" class="form-field-multiline-subscript">
-        <input
-          matInput
-          placeholder="Going Offline Message"
-          [(ngModel)]="offline.goingOfflineMessage"
-          name="goingOfflineMessage">
-        <mat-hint>&lbrace;$offlineTime&rbrace; displays the date and time when the app will go offine</mat-hint>
-      </mat-form-field> 
+      @if (offline.date) {
+        <mat-form-field class="form-field-multiline-subscript">
+          <input
+            matInput
+            placeholder="Going Offline Message"
+            [(ngModel)]="offline.goingOfflineMessage"
+            name="goingOfflineMessage">
+          <mat-hint>&lbrace;$offlineTime&rbrace; displays the date and time when the app will go offine</mat-hint>
+        </mat-form-field>
+      }
     </div>
-
     <fs-label>Page Content</fs-label>
     <fs-html-editor
       [(ngModel)]="offline.content"
       name="html">
-    </fs-html-editor> 
-  </ng-container>
+    </fs-html-editor>
+  }
 
   <br>
-  <button
+    <button
       mat-raised-button
       type="submit"
       color="primary">
-    Save
-  </button>
-</form>
+      Save
+    </button>
+  </form>
