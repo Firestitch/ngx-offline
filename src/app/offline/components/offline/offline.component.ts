@@ -15,13 +15,21 @@ import { isAfter, startOfMinute } from 'date-fns';
 
 import { FsOfflineConfig, Offline } from '../../../interfaces';
 import { FS_OFFLINE_CONFIG } from '../../../injectors';
+import { MatCard, MatCardContent } from '@angular/material/card';
+import { FsHtmlRendererModule } from '@firestitch/html-editor';
 
 
 @Component({
-  selector: 'fs-offline',
-  templateUrl: './offline.component.html',
-  styleUrls: ['./offline.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'fs-offline',
+    templateUrl: './offline.component.html',
+    styleUrls: ['./offline.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        MatCard,
+        MatCardContent,
+        FsHtmlRendererModule,
+    ],
 })
 export class OfflineComponent implements OnInit {
 

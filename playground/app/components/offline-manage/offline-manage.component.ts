@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
 import { OfflineService } from 'playground/app/services';
 import { Observable, of } from 'rxjs';
+import { OfflineManageComponent as OfflineManageComponent_1 } from '../../../../src/app/offline-manage/components/offline-manage/offline-manage.component';
 
 
 @Component({
-  selector: 'app-offline-manage',
-  templateUrl: './offline-manage.component.html',
-  styleUrls: ['./offline-manage.component.scss']
+    selector: 'app-offline-manage',
+    templateUrl: './offline-manage.component.html',
+    styleUrls: ['./offline-manage.component.scss'],
+    standalone: true,
+    imports: [OfflineManageComponent_1]
 })
 export class OfflineManageComponent {
 

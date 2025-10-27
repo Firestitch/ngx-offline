@@ -8,7 +8,7 @@ import { FsExampleModule } from '@firestitch/example';
 import { FsHtmlEditorModule } from '@firestitch/html-editor';
 import { FsLabelModule } from '@firestitch/label';
 import { FsMessageModule } from '@firestitch/message';
-import { FsOfflineManageModule, FsOfflineModule } from '@firestitch/offline';
+
 import { FsStoreModule } from '@firestitch/store';
 
 import { FsDatePickerModule } from '@firestitch/datepicker';
@@ -21,7 +21,7 @@ import {
 import { OfflineComponent } from './components/offline';
 import { OfflineManageComponent } from './components/offline-manage';
 import { offlineConfig } from './helpers/offline-config';
-import { AppMaterialModule } from './material.module';
+
 import { OfflineService } from './services';
 
 
@@ -30,14 +30,12 @@ const routes: Routes = [
   { path: 'offline', component: OfflineComponent },
 ];
 
-@NgModule({
-  bootstrap: [AppComponent],
-  imports: [
+@NgModule(/* TODO(standalone-migration): clean up removed NgModule class manually. 
+{
+    bootstrap: [AppComponent],
+    imports: [
     BrowserModule,
-    FsOfflineManageModule,
-    FsOfflineModule,
     BrowserAnimationsModule,
-    AppMaterialModule,
     FormsModule,
     FsLabelModule,
     FsDatePickerModule.forRoot(),
@@ -46,21 +44,19 @@ const routes: Routes = [
     FsHtmlEditorModule.forRoot(),
     FsMessageModule.forRoot(),
     RouterModule.forRoot(routes),
-  ],
-  providers: [
-    {
-      provide: FS_OFFLINE_CONFIG,
-      useFactory: offlineConfig,
-      deps: [OfflineService]
-    },
-  ],
-  declarations: [
-    AppComponent,
     ExamplesComponent,
     OfflineManageComponent,
     OfflineComponent,
-  ],
-})
+],
+    providers: [
+        {
+            provide: FS_OFFLINE_CONFIG,
+            useFactory: offlineConfig,
+            deps: [OfflineService]
+        },
+    ],
+    declarations: [AppComponent],
+} */)
 export class PlaygroundModule {
 
   public constructor(

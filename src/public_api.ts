@@ -1,5 +1,5 @@
-export { FsOfflineModule } from './app/offline/offline.module';
-export { FsOfflineManageModule } from './app/offline-manage/offline-manage.module';
+
+
 
 export { Offline } from './app/interfaces/offline-config';
 
