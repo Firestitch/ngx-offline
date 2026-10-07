@@ -25,7 +25,7 @@
             placeholder="Redirect Delay"
             [(ngModel)]="offline.redirectDelay"
             name="redirectDelay">
-          <div matSuffix>seconds</div>
+          <div matTextSuffix>seconds</div>
         </mat-form-field>
       }
       <mat-form-field>
@@ -43,7 +43,7 @@
             placeholder="Going Offline Message"
             [(ngModel)]="offline.goingOfflineMessage"
             name="goingOfflineMessage">
-          <mat-hint>&lbrace;$offlineTime&rbrace; displays the date and time when the app will go offine</mat-hint>
+          <mat-hint>&lbrace;$offlineTime&rbrace; displays the date and time when the app will go offline</mat-hint>
         </mat-form-field>
       }
     </div>
